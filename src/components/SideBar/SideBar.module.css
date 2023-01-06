@@ -1,13 +1,23 @@
 .nav{
   grid-area: sidebar;
   background-color: burlywood;
+  padding: 20px;
 }
 
 .item{
   list-style: none;
+  margin-bottom: 10px;
+  font-size: 18px;
 }
 
-.item > a {
+.item > a{
   text-decoration: none;
+}
+
+.item__link {
   color: #fff;
+}
+
+.active{
+  color: black;
 }
