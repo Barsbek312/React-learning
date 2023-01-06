@@ -1,0 +1,9 @@
+.content{
+  grid-area: main-content;
+  background-color: cornflowerblue;
+}
+  
+.profile__img{
+  width: 100%;
+  height: auto;
+}

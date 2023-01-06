@@ -1,0 +1,13 @@
+.nav{
+  grid-area: sidebar;
+  background-color: burlywood;
+}
+
+.item{
+  list-style: none;
+}
+
+.item > a {
+  text-decoration: none;
+  color: #fff;
+}
