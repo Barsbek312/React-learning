@@ -14,7 +14,7 @@ function App() {
         <SideBar />
         <div className='app-wrapper-content'>
           <Routes>
-            <Route path='/dialogs' element={<Dialogs/>}/>
+            <Route path='/dialogs/*' element={<Dialogs/>}/>
             <Route path='/profile' element={<MainContent/>}/>
           </Routes>
         </div> 
