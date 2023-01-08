@@ -7,24 +7,7 @@
     padding: 10px;
 }
 
-.dialog{
-    margin-bottom: 5px;
-}
-
-.dialogs__items a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.dialogs__items .active{
-    color: blue;
-}
-
 .messages{
     padding: 10px;
 }
 
-.message{
-    color: white;
-}

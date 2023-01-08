@@ -4,22 +4,20 @@ import Header from './components/Header/Header';
 import SideBar from './components/SideBar/SideBar';
 import MainContent from './components/Profile/Profile';
 import Dialogs from './components/Dialogs/Dialogs';
-import {BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-function App() {
+function App(props) {
   return (
-    <BrowserRouter >
-      <div className="app-wrapper">
-        <Header />
-        <SideBar />
-        <div className='app-wrapper-content'>
-          <Routes>
-            <Route path='/dialogs/*' element={<Dialogs/>}/>
-            <Route path='/profile' element={<MainContent/>}/>
-          </Routes>
-        </div> 
+    <div className="app-wrapper">
+      <Header />
+      <SideBar />
+      <div className='app-wrapper-content'>
+        <Routes>
+          <Route path='/dialogs/*' element={<Dialogs localState={props.appState.messagesPage} />} />
+          <Route path='/profile' element={<MainContent localState={props.appState.profilePage} />} />
+        </Routes>
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 

@@ -1,0 +1,13 @@
+.dialog{
+    margin-bottom: 5px;
+}
+
+.dialog a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.dialog .active{
+    color: blue;
+}
