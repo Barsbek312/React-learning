@@ -5,7 +5,7 @@ let rerenderEntireTree = () => {
 let state = {
     messagesPage: {
         dialogsData: [
-            {id: 1, name: 'Миррахим лох'},
+            {id: 1, name: 'Миррахим'},
             {id: 2, name: 'Байэл'},
             {id: 3, name: 'Эльдияр'},
             {id: 4, name: 'Дастан'},
