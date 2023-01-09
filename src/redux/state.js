@@ -1,3 +1,7 @@
+let rerenderEntireTree = () => {
+    console.log('Rerender changed');
+}
+
 let state = {
     messagesPage: {
         dialogsData: [
@@ -14,6 +18,7 @@ let state = {
           ],
     },
     profilePage: {
+        newPostText: 'it-Bars.com',
         postsData: [
             { id: 1, postTxt: 'Вся ебля твоя, Гилфойл', likesCount: 10 },
             { id: 2, postTxt: "Вся ебля твоя, Гилфойл", likesCount: 10 },
@@ -27,5 +32,25 @@ let state = {
           ]
     },
 };
+
+export const addPost = () => {
+    let newPost = {
+        id: 5,
+        postTxt: state.profilePage.newPostText,
+        likesCount: 0
+    };
+    state.profilePage.postsData.push(newPost);
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
+}
+
+export const addLetterOnNewPostText = (newText) => {
+    state.profilePage.newPostText = newText;
+    rerenderEntireTree(state);
+}
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer;
+}
 
 export default state;

@@ -7,7 +7,7 @@ const MainContent = (props) => {
     return(
         <div>
             <ProfileInfo/>
-            <MyPosts postsData={props.localState.postsData}/>
+            <MyPosts addNewText={props.addNewText} postsData={props.localState.postsData} addPost={props.addPost} newPostText={props.localState.newPostText}/>
         </div> 
     );
 }
