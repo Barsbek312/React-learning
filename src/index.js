@@ -19,7 +19,7 @@ let rerenderEntireTree = (state) => {
   );
 }
 
-rerenderEntireTree();
+rerenderEntireTree(state);
 
 subscribe(rerenderEntireTree);
 

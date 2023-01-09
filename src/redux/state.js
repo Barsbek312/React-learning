@@ -20,18 +20,20 @@ let state = {
     profilePage: {
         newPostText: 'it-Bars.com',
         postsData: [
-            { id: 1, postTxt: 'Вся ебля твоя, Гилфойл', likesCount: 10 },
-            { id: 2, postTxt: "Вся ебля твоя, Гилфойл", likesCount: 10 },
-            { id: 3, postTxt: 'Вся ебля твоя, Гилфойл', likesCount: 10 },
-            { id: 4, postTxt: 'Вся ебля твоя, Гилфойл', likesCount: 10 },
-            { id: 5, postTxt: "Вся ебля твоя, Гилфойл", likesCount: 10 },
-            { id: 6, postTxt: 'Вся ебля твоя, Гилфойл', likesCount: 10 },
-            { id: 7, postTxt: 'Вся ебля твоя, Гилфойл', likesCount: 10 },
-            { id: 8, postTxt: "Вся ебля твоя, Гилфойл", likesCount: 10 },
-            { id: 9, postTxt: "Вся ебля твоя, Гилфойл", likesCount: 10 },
+            { id: 1, postTxt: 'Вся ебля твоя, Джаред', likesCount: 10 },
+            { id: 2, postTxt: "Вся ебля твоя, Джаред", likesCount: 10 },
+            { id: 3, postTxt: 'Вся ебля твоя, Джаред', likesCount: 10 },
+            { id: 4, postTxt: 'Вся ебля твоя, Джаред', likesCount: 10 },
+            { id: 5, postTxt: "Вся ебля твоя, Джаред", likesCount: 10 },
+            { id: 6, postTxt: 'Вся ебля твоя, Джаред', likesCount: 10 },
+            { id: 7, postTxt: 'Вся ебля твоя, Джаред', likesCount: 10 },
+            { id: 8, postTxt: "Вся ебля твоя, Джаред", likesCount: 10 },
+            { id: 9, postTxt: "Вся ебля твоя, Джаред", likesCount: 10 },
           ]
     },
 };
+
+window.state = state;
 
 export const addPost = () => {
     let newPost = {
