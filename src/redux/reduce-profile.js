@@ -1,5 +1,6 @@
 const ADD_POST = "ADD_POST";
 const ADD_NEW_POST_TEXT = "ADD_LETTER_ON_NEW_POST_TEXT";
+const REMOVE_TEXT = "REMOVE_TEXT";
 
 let initialState = {
     newPostText: 'it-Bars.com',
@@ -18,22 +19,33 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch(action.type){
-        case ADD_POST:
+        case ADD_POST:  {
             let newPost = {
                 id: 5,
                 postTxt: state.newPostText,
                 likesCount: 0
             };
-            state.postsData.push(newPost);
-            state.newPostText = '';
+            return {
+                ...state,
+                postsData: [ ...state.postsData, newPost ],
+                newPostText: ''
+            };
+        }
+        case ADD_NEW_POST_TEXT: {
+            return {
+                ...state,
+                newPostText: action.newText 
+            };
+        }
+        case REMOVE_TEXT: {
+            return {
+                ...state,
+                newPostText: '',
+            };
+        }
+        default: {
             return {...state};
-        
-        case ADD_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return {...state};
-
-        default:
-            return {...state};
+        }
     }
 
 }
@@ -50,6 +62,12 @@ export const onPostChangeActionCreater = (text) => {
     return {
         type: ADD_NEW_POST_TEXT,
         newText: text,
+    }
+}
+
+export const removeTextPostActionCreater = () => {
+    return {
+        type: REMOVE_TEXT,
     }
 }
 

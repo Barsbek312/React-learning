@@ -11,6 +11,7 @@ const SideBar = () => {
                 <li className={sideCss.item}><NavLink className={navData => navData.isActive? sideCss.active : sideCss.item__link} to="">News</NavLink></li>
                 <li className={sideCss.item}><NavLink className={navData => navData.isActive? sideCss.active : sideCss.item__link} to="">Music</NavLink></li>
                 <li className={sideCss.item}><NavLink className={navData => navData.isActive? sideCss.active : sideCss.item__link} to="">Settings</NavLink></li>
+                <li className={sideCss.item}><NavLink className={navData => navData.isActive? sideCss.active : sideCss.item__link} to="/users">Find users</NavLink></li>
             </ul>
         </nav>
     );

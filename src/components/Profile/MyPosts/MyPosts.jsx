@@ -18,6 +18,10 @@ const MyPosts = (props) => {
         props.updateNewPostText(text);
     }
 
+    let onClickRemove = () => {
+        props.removeText();
+    }
+
     return (
         <div className={postsCss.posts__block}>
             <h3> my posts</h3>
@@ -27,7 +31,7 @@ const MyPosts = (props) => {
                 </div>
                 <div>
                     <button onClick={onAddPost}>Add Post</button>
-                    <button>Remove</button>
+                    <button onClick={onClickRemove}>Remove</button>
                 </div>
             </div>
             <div className={postsCss.posts}>

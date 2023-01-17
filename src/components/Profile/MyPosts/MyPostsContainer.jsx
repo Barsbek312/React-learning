@@ -1,6 +1,6 @@
 import React from 'react';
 import MyPosts from './MyPosts';
-import { addPostActionCreater, onPostChangeActionCreater } from './../../../redux/reduce-profile';
+import { addPostActionCreater, onPostChangeActionCreater, removeTextPostActionCreater } from './../../../redux/reduce-profile';
 import {connect} from 'react-redux';
 
 let mapDispatchToProps = (dispatch) => {
@@ -10,6 +10,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         addPost: () => {
             dispatch(addPostActionCreater());
+        },
+        removeText: () => {
+            dispatch(removeTextPostActionCreater());
         }
     }
 }
