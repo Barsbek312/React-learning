@@ -1,41 +1,35 @@
-import axios from "axios";
 import React from "react";
 import User from "./User/User";
+import usersCss from "./Users.module.css";
 
 const Users = (props) => {
 
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios
-            .get("https://social-network.samuraijs.com/api/1.0/users")
-            .then(res => 
-                {
-                    props.setUsers(res.data.items)
-                }
-            )
-        }
-    }
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-    const clickFollow = (id) => {
-        props.follow(id);
-    }
+    let pages = [];
 
-    const clickUnfollow = (id) => {
-        props.unfollow(id);
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
     return (
         <div>
-            <button onClick={getUsers}>Click</button>
             <h2>Users</h2>
             {
                 props.users.map(u => {
                     return (
-                        <User key={u.id} u = {u} clickFollow={clickFollow} clickUnfollow={clickUnfollow}/>
+                        <User key={u.id} u={u} clickFollow={props.clickFollow} clickUnfollow={props.clickUnfollow} />
                     )
                 })
             }
+            <div>
+                {
+                    pages.map(page => {
+                        return <button key={page} onClick={(e) => { props.onPageChanged(page) }} className={props.currentPage === page ? usersCss.selectedPage : undefined}>{page}</button>
+                    })
+                }
+            </div>
         </div>
-    );
+    )
 }
 
 export default Users;

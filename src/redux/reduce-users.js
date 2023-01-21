@@ -1,9 +1,16 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET_USERS"
+const SET_USERS = "SET_USERS";
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 let initialState = {
-    usersData: []
+    usersData: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1,
+    isFetching: false,
 }
 
 const userReducer = (state = initialState, action) => {
@@ -14,6 +21,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 usersData: action.users,
+            }
+
+        case SET_TOTAL_COUNT:
+            return {
+                ...state,
+                totalUsersCount: action.totalCount,
             }
 
         case FOLLOW:
@@ -39,30 +52,63 @@ const userReducer = (state = initialState, action) => {
                 })
             }
 
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.currentPage,
+            }
+
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching,
+            }
+
         default: 
             return state
     }
 
 } 
 
-export const setUsersAC = (users) => {
+export const setTotalCount = (totalCount) => {
+    return {
+        type: SET_TOTAL_COUNT,
+        totalCount
+    }
+}
+
+export const setUsers = (users) => {
     return {
         type: SET_USERS,
         users
     }
 }
 
-export const followAC = (userId) => {
+export const follow = (userId) => {
     return {
         type: FOLLOW,
         userId
     }
 }
 
-export const unfollowAC = (userId) => {
+export const unfollow = (userId) => {
     return {
         type: UNFOLLOW,
         userId
+    }
+}
+
+export const setCurrentPage = (currentPage) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage: currentPage
+    }
+}
+
+export const toggleIsFetching = (isFetching) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        isFetching
     }
 }
 
