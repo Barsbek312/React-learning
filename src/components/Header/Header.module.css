@@ -5,5 +5,13 @@
 
 .header__img{
   width: 20px;
+}
 
+.login__block{
+  float: right;
+}
+
+.login__block a{
+  color: #fff;
+  
 }

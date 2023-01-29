@@ -17,14 +17,14 @@ const Users = (props) => {
             {
                 props.users.map(u => {
                     return (
-                        <User key={u.id} u={u} clickFollow={props.clickFollow} clickUnfollow={props.clickUnfollow} />
+                        <User key={u.id} u={u} {...props} />
                     )
                 })
             }
             <div>
                 {
                     pages.map(page => {
-                        return <button key={page} onClick={(e) => { props.onPageChanged(page) }} className={props.currentPage === page ? usersCss.selectedPage : undefined}>{page}</button>
+                        return <button key={page} onClick={(e) => { props.onPageChanged(page) }} className={props.currentPage === page ? usersCss.selectedPage : null}>{page}</button>
                     })
                 }
             </div>

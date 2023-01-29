@@ -1,9 +1,10 @@
 import React from "react";
 import MainContent from "./Profile";
-import axios from "axios";
-import { setUserProfile } from "../../redux/reduce-profile";
+import { getAndSetUserProfile, getStatus, updateStatus } from "../../redux/reduce-profile";
 import { connect } from 'react-redux';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/WithAuthRedirect";
+import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
 
@@ -12,18 +13,19 @@ class ProfileContainer extends React.Component {
         if(!userId) {
             userId = 27534;
         }
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(res => {
-                this.props.setUserProfile(res.data)
-            }
-            )
+        this.props.getAndSetUserProfile(userId);
+        this.props.getStatus(userId);
 
     }
 
     render() {
+
+        if(!this.props.isAuth) {
+            return <Navigate to="/login"/>    
+        }
+
         return (
-            <MainContent {...this.props} profile={this.props.profile} />
+            <MainContent {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} />
         )
     };
 
@@ -31,7 +33,8 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        status : state.profilePage.status,
     }
 }
 
@@ -51,8 +54,6 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-let withUrlDataContaineComponent = withRouter(ProfileContainer)
-
-export default connect(mapStateToProps, {
-    setUserProfile
-})(withUrlDataContaineComponent);
+export default compose(connect(mapStateToProps, {
+    getAndSetUserProfile, getStatus, updateStatus
+}), withRouter, withAuthRedirect)(ProfileContainer);

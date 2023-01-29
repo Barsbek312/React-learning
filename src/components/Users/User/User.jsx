@@ -5,11 +5,11 @@ import userCss from './User.module.css';
 const User = (props) => {
 
     const onClickFollow = () => {
-        props.clickFollow(props.u.id);
+        props.setFollowToUser(props.u.id, props.clickFollow);
     }
 
     const onClickUnfollow = () => {
-        props.clickUnfollow(props.u.id);
+        props.setUnfollowToUser(props.u.id, props.clickUnfollow);
     }
 
     return (
@@ -22,8 +22,8 @@ const User = (props) => {
                 </div>
                 {
                     props.u.followed
-                        ? <button onClick={onClickUnfollow}> Unfollow </button>
-                        : <button onClick={onClickFollow}> Follow </button>
+                        ? <button disabled={props.followingInProgress.some(id => id === props.u.id)} onClick={onClickUnfollow}> Unfollow </button>
+                        : <button disabled={props.followingInProgress.some(id => id === props.u.id)} onClick={onClickFollow}> Follow </button>
                 }
             </div>
             <div className={userCss.text__block}>

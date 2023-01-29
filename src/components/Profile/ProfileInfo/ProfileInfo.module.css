@@ -1,6 +1,11 @@
+.img__wrapper{
+    width: 300px;
+    height: 300px;
+}
+
 .profile__img{
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .description__block{
