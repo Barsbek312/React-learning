@@ -2,13 +2,12 @@ import React from 'react';
 import dialogsCss from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { Navigate } from 'react-router-dom';
+import AddMessageForm from './AddMessageForm/AddMessageForm';
+
 
 const Dialogs = (props) => {
 
     let state = props.dialogsPage
-
-    let textOfMessage = React.createRef();
 
     let dialogsElements = state.dialogsData
         .map((d, index) => <DialogItem key={index} idDialog={d.id} name={d.name} />)
@@ -16,13 +15,9 @@ const Dialogs = (props) => {
     let messagesElements = state.messagesData
         .map((m, index) => <Message key={index} message={m.message} />)
 
-    const onAddMessage = () => {
-        props.addMessage();
-    }
-
-    const onMessageChange = () => {
-        let text = textOfMessage.current.value;
-        props.messageChange(text);
+    const addNewMessage = (values) => {
+        props.addMessage(values.newMessageText);
+        values.newMessageText = '';
     }
 
 
@@ -33,17 +28,11 @@ const Dialogs = (props) => {
             </div>
             <div className={dialogsCss.messages}>
                 <div>{messagesElements}</div>
-                <div>
-                    <div>
-                        <textarea onChange={onMessageChange} placeholder='Enter your message' value={state.newMessageText} ref={textOfMessage}></textarea>
-                    </div>
-                    <div>
-                        <button onClick={onAddMessage}>Add message</button>
-                    </div>
-                </div>
+                <AddMessageForm onSubmit={addNewMessage} { ...props }/>  
             </div>
         </div>
     );
+
 }
 
 

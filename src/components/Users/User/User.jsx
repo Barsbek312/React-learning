@@ -2,37 +2,37 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import userCss from './User.module.css';
 
-const User = (props) => {
+const User = ({u, followingInProgress, setFollowToUser, setUnfollowToUser}) => {
 
     const onClickFollow = () => {
-        props.setFollowToUser(props.u.id, props.clickFollow);
+        setFollowToUser(u.id);
     }
 
     const onClickUnfollow = () => {
-        props.setUnfollowToUser(props.u.id, props.clickUnfollow);
+        setUnfollowToUser(u.id);
     }
 
     return (
         <div className={userCss.info__block}>
             <div className={userCss.ava__block}>
                 <div className={userCss.img__block}>
-                    <NavLink to={"/profile/" + props.u.id}>
-                        <img src={props.u.photos.small !== null ? props.u.photos.small : "https://img.freepik.com/premium-vector/mans-head-avatar-vector_83738-354.jpg"} alt="avatar" />
+                    <NavLink to={"/profile/" + u.id}>
+                        <img src={u.photos.small !== null ? u.photos.small : "https://img.freepik.com/premium-vector/mans-head-avatar-vector_83738-354.jpg"} alt="avatar" />
                     </NavLink>
                 </div>
                 {
-                    props.u.followed
-                        ? <button disabled={props.followingInProgress.some(id => id === props.u.id)} onClick={onClickUnfollow}> Unfollow </button>
-                        : <button disabled={props.followingInProgress.some(id => id === props.u.id)} onClick={onClickFollow}> Follow </button>
+                    u.followed
+                        ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={onClickUnfollow}> Unfollow </button>
+                        : <button disabled={followingInProgress.some(id => id === u.id)} onClick={onClickFollow}> Follow </button>
                 }
             </div>
             <div className={userCss.text__block}>
                 <div className={userCss.text__left}>
                     <h3>
-                        {props.u.name}
+                        {u.name}
                     </h3>
                     <p>
-                        {props.u.status}
+                        {u.status}
                     </p>
                 </div>
                 <div className={userCss.text__right}>

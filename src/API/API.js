@@ -1,4 +1,6 @@
 import axios from "axios";
+import { login } from "../redux/auth-reducer";
+import { Input } from "../components/common/FormsControls/FormsControls";
 
 let instance = axios.create({
     withCredentials: true,
@@ -7,42 +9,32 @@ let instance = axios.create({
 
 export const usersAPI = {
 
-    getUsers(currentPage = 1, pageSize = 5) {
-        return instance
-            .get(`users?page=${currentPage}&count=${pageSize}`,
-        ).then(res => res.data);
+    async getUsers(currentPage = 1, pageSize = 5) {
+        let res = await instance.get(`users?page=${currentPage}&count=${pageSize}`,{})
+        return res.data
     },
 
-    postFollow(userId) {
-        return instance
-            .post(`follow/${userId}`, {})
-            .then(res => res.data)
+    async postFollow(userId) {
+        let res = await instance.post(`follow/${userId}`, {})
+        return res.data
     },
 
-    postUnfollow(userId) {
-        return instance
-            .delete(`follow/${userId}`)
-            .then(res => res.data)
-    },
-
-    getProfile(userId) {
-        console.warn('Obsolete method. Please use ProfileAPI object.')
-        return profileAPI.getProfile(userId);
+    async postUnfollow(userId) {
+        let res = await instance.delete(`follow/${userId}`)
+        return res.data
     }
-
 }
+
 export const profileAPI = {
 
-    getProfile(userId) {
-        return instance
-            .get(`profile/${userId}`)
-            .then(res => res.data)
+    async getProfile(userId) {
+        let res = await instance.get(`profile/${userId}`)
+        return res.data
     },
 
-    getStatus(userId) {
-        return instance
-            .get(`profile/status/${userId}`)
-            .then(res => res.data)
+    async getStatus(userId) {
+        let res = await instance.get(`profile/status/${userId}`)
+        return res.data
     },
 
     updateStatus(status) {
@@ -55,9 +47,23 @@ export const profileAPI = {
 }
 
 export const authAPI = {
-    me() {
-        return instance 
-            .get(`auth/me`)
-            .then(res => res.data)
+
+    async me() {
+        let res = await instance .get(`auth/me`)
+        return res.data
+    },
+
+    async login(email, password, rememberMe = false) {
+        let res = await instance
+        .post(`auth/login`, {
+            email, password, rememberMe
+        })
+        return res.data
+    },
+
+    async logout() {
+        let res = await instance.delete('auth/login')
+        return res.data
     }
+
 }

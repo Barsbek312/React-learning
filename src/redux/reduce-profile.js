@@ -1,14 +1,12 @@
-import { usersAPI } from "../API/API";
 import { profileAPI } from "../API/API";
 
-const ADD_POST = "ADD_POST";
-const ADD_NEW_POST_TEXT = "ADD_LETTER_ON_NEW_POST_TEXT";
-const REMOVE_TEXT = "REMOVE_TEXT";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
+const ADD_POST = "network/profile/ADD_POST";
+const REMOVE_TEXT = "network/profile/REMOVE_TEXT";
+const SET_USER_PROFILE = "network/profile/SET_USER_PROFILE";
+const SET_STATUS = "network/profile/SET_STATUS";
+const DELETE_POST = "network/profile/DELETE_POST";
 
 let initialState = {
-    newPostText: 'it-Bars.com',
     postsData: [
         { id: 1, postTxt: 'Вся ебля твоя, Джаред', likesCount: 10 },
         { id: 2, postTxt: "Вся ебля твоя, Джаред", likesCount: 10 },
@@ -29,21 +27,15 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id: 5,
-                postTxt: state.newPostText,
+                postTxt: action.newMessageBody,
                 likesCount: 0
             };
             return {
                 ...state,
                 postsData: [...state.postsData, newPost],
-                newPostText: ''
             };
         }
-        case ADD_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            };
-        }
+
         case REMOVE_TEXT: {
             return {
                 ...state,
@@ -63,6 +55,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status,
             }
+        case DELETE_POST:
+            return{
+                ...state,
+                postsData: state.postsData.filter(item => item.id != action.postId)
+            }
 
         default: {
             return { ...state };
@@ -71,19 +68,13 @@ const profileReducer = (state = initialState, action) => {
 
 }
 
-export const addPostActionCreater = () => {
+export const addPostActionCreater = (newMessageBody) => {
     return (
         {
             type: ADD_POST,
+            newMessageBody
         }
     )
-}
-
-export const onPostChangeActionCreater = (text) => {
-    return {
-        type: ADD_NEW_POST_TEXT,
-        newText: text,
-    }
 }
 
 export const removeTextPostActionCreater = () => {
@@ -99,12 +90,11 @@ export const setUserProfile = (profile) => {
     }
 }
 
-export const getAndSetUserProfile = (userId) => (dispatch) => {
-    usersAPI.getProfile(userId)
-        .then(res => {
-            dispatch(setUserProfile(res))
-        }
-        )
+export const deletePost = (postId) => {
+    return{
+        type: DELETE_POST,
+        postId
+    }
 }
 
 export const setStatus = (status) => {
@@ -114,24 +104,26 @@ export const setStatus = (status) => {
     }
 }
 
-export const getStatus = (userId) => (dispatch) => {
+export const getAndSetUserProfile = (userId) => async (dispatch) => {
+    let res = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(res))
+}
 
-    profileAPI.getStatus(userId)
-        .then(res => {
-            dispatch(setStatus(res))
-        })
+
+export const getStatus = (userId) => async (dispatch) => {
+    let res = await profileAPI.getStatus(userId)
+    dispatch(setStatus(res))
 
 }
 
-export const updateStatus = (status) => (dispatch) => {
-
-    profileAPI.updateStatus(status)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+export const updateStatus = (status) => async (dispatch) => {
+    let res = await profileAPI.updateStatus(status);
+    if (res.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
 
 }
+
+
 
 export default profileReducer;

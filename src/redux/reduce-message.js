@@ -1,7 +1,6 @@
-const ADD_MESSAGE = "ADD_MESSAGE";
-const ADD_NEW_MESSAGE_TEXT = "ADD_NEW_MESSAGE_TEXT";
+const ADD_MESSAGE = "network/message/ADD_MESSAGE";
 
-let initialState = {newMessageText: "",
+let initialState = {
 dialogsData: [
     { id: 1, name: 'Миррахим' },
     { id: 2, name: 'Байэл' },
@@ -22,20 +21,14 @@ const messageReducer = (state = initialState, action) => {
         case ADD_MESSAGE: {
             let newMessage = {
                 id: 5,
-                message: state.newMessageText,
+                message: action.newMessageBody,
             }
             return {
                 ...state,
                 messagesData: [ ...state.messagesData, newMessage],
-                newMessageText: ''
             }
         }
-        case ADD_NEW_MESSAGE_TEXT: {
-            return {
-                ...state,
-                newMessageText: action.newMessage
-            }
-        }
+
         default:
             return {...state};
 
@@ -43,19 +36,13 @@ const messageReducer = (state = initialState, action) => {
 
 }
 
-export const addMessageActionCreater = () => {
+export const addMessageActionCreater = (newMessageBody) => {
     return (
         {
             type: ADD_MESSAGE,
+            newMessageBody
         }
     )
-}
-
-export const onMessageChangeActionCreater = (text) => {
-    return {
-        type: ADD_NEW_MESSAGE_TEXT,
-        newMessage: text,
-    }
 }
 
 export default messageReducer;
